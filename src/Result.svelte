@@ -25,8 +25,8 @@
 
   function Decrement(i:number){
     if($counts[i].num > 0){
-      sum -=  1
       $counts[i].num -= 1
+      sum -= 1
     }else{
       return
     }
@@ -38,9 +38,9 @@
 </script>
 <p>合計：{ sum }</p>
 {#each $counts as count, index}
-  <div class="count">
-    <input type="text" placeholder="{count.title}" />
-    <span class="calam">
+  <div class="counter">
+    <input type="text" class="counter_title" placeholder="{count.title}" />
+    <span class="counter_items">
       <button class="item">{count.num}</button>
       <button class="item" on:click={() => Increment(index)}>+</button>
       <button class="item" on:click={() => Decrement(index)}>-</button>
@@ -49,32 +49,33 @@
     </span>
   </div>
 {/each} 
-<button class="new" on:click={addToList}>new</button>
+<button class="add" on:click={ addToList }>new</button>
 
 <style>
   p{
     text-align:left
   }
-  .count{
+  .counter {
     margin-top:5px;
     width:100%;
     margin:5px auto;
+    border-radius: 3px;
     box-shadow: 2px 2px 4px;
   }
-  .calam{
+  .counter_items {
     width: 50%;
     margin-right:0;
     
     }
-  .item{
+  .item {
     margin: 10px 0;
     width:40px;
   }
-  input{
+  .counter_title {
     width: 60%;
     margin-left:0;
   }
-  .new {
+  .add {
       width:100%;
       margin-top:20px;
   }
