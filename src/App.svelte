@@ -3,10 +3,10 @@
 </script>
 
 <main>
-	
-</main>
   <h1>Counter Application</h1>
-  <Result/>
+  <Result/>	
+</main>
+ 
 <style>
   main {
   text-align: center;
