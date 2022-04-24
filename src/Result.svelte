@@ -62,23 +62,24 @@
     border-radius: 3px;
     box-shadow: 2px 2px 4px;
   }
+  .counter_title {
+    width: 60%;
+    margin-left:0;
+  }
   .counter_items {
-    width: 50%;
+    width: 40%;
     margin-right:0;
     
     }
   .item {
     margin: 10px 0;
     width:40px;
+
   }
   .number {
       background-color:#6495ed;
       color:white;
       pointer-events:none;
-  }
-  .counter_title {
-    width: 60%;
-    margin-left:0;
   }
   .add {
       width:100%;
@@ -88,5 +89,19 @@
   .add:hover {
       background-color:#ffffff;
 
+  }
+  @media(max-width:650px){
+    .counter_title {
+      width: 50%;
+      margin-left:0;
+    }
+    .counter_items {
+      width: 50%;
+      margin-right:0;
+    }
+    .item {
+      margin: 10px 0;
+      width:8%;
+    }
   }
 </style>
