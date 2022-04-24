@@ -55,38 +55,37 @@
   p{
     text-align:left
   }
-  .counter {
+  .counter{
     margin-top:5px;
     width:100%;
     margin:5px auto;
     border-radius: 3px;
     box-shadow: 2px 2px 4px;
   }
-  .counter_title {
+  .counter_title{
     width: 60%;
     margin-left:0;
   }
-  .counter_items {
+  .counter_items{
     width: 40%;
     margin-right:0;
-    
     }
-  .item {
+  .item{
     margin: 10px 0;
     width:40px;
 
   }
-  .number {
+  .number{
       background-color:#6495ed;
       color:white;
       pointer-events:none;
   }
-  .add {
+  .add{
       width:100%;
       margin-top:20px;
       background-color:#dcdcdc;
   }
-  .add:hover {
+  .add:hover{
       background-color:#ffffff;
 
   }
@@ -102,7 +101,6 @@
     .item {
       margin: 10px 0;
       width:8%;
-      font-size:15px;
     }
   }
 </style>
