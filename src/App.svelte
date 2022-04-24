@@ -3,7 +3,7 @@
 </script>
 
 <header>
-	<h1>hello Counter Application</h1>
+	<h1>Counter Application</h1>
 </header>
 <main>
   <Calculate/>	
