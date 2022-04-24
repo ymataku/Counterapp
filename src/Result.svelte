@@ -102,7 +102,7 @@
     .item {
       margin: 10px 0;
       width:8%;
-      font-size:3vw;
+      font-size:15px;
     }
   }
 </style>
