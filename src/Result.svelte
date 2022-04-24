@@ -41,7 +41,7 @@
   <div class="counter">
     <input type="text" class="counter_title" placeholder="{count.title}" />
     <span class="counter_items">
-      <button class="item">{count.num}</button>
+      <button class="item number">{count.num}</button>
       <button class="item" on:click={() => Increment(index)}>+</button>
       <button class="item" on:click={() => Decrement(index)}>-</button>
       <button class="item" on:click={() => resetIndex(index)}>0</button>
@@ -71,6 +71,11 @@
     margin: 10px 0;
     width:40px;
   }
+  .number {
+      background-color:#6495ed;
+      color:white;
+      pointer-events:none;
+  }
   .counter_title {
     width: 60%;
     margin-left:0;
@@ -78,5 +83,10 @@
   .add {
       width:100%;
       margin-top:20px;
+      background-color:#dcdcdc;
+  }
+  .add:hover {
+      background-color:#ffffff;
+
   }
 </style>
