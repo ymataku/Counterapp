@@ -1,9 +1,9 @@
 <script lang="ts">
   import { counts } from "./stores.js";
-
+  
   let sum:number = 0;
   for(let key in $counts){
-    sum += $counts[key].num; 
+   sum += $counts[key].num; 
   }
   
   function removeFromList(i:number) {
