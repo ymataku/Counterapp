@@ -1,40 +1,41 @@
 <script lang="ts">
   import AddToList from './AddToList.svelte';
+  import Increment from './Increment.svelte';
+  import Decrement from './Decrement.svelte';
+  import ResetNumber from './ResetNumber.svelte';
+  import RemoveFromList from './RemoveFromList.svelte';
   let title = ['new']
   let num = [0]
   
-  $: sum = num.reduce((sum, element) => sum + element,0)
-  function removeFromList(i:number) {
-    num.splice(i, 1)
-    title.splice(i, 1)
-    num = num
-    title = title
-  }
+  $: sum = num.reduce((sum, element) => sum + element, 0)
   
-  function resetIndex(i:number) {
-		num[i] = 0
-  }
-
-  function Increment(i:number){
-      num[i] += 1 
-      
-  }
-
-  function Decrement(i:number){
-    if(num[i] > 0){
-      num[i] -= 1
-    }else{
-      return
+  function EventHandler(event) {
+    let index = event.detail.index
+    switch(event.type){
+      case "new":
+        title = [...title,event.detail.text]
+        num = [...num,event.detail.number]
+        break;
+      case "increment":
+        num[index] += 1;
+        break;
+      case "decrement":
+        num[index] -= 1;
+        break;
+      case "reset":
+        num[index] = 0;
+        break;
+      case "remove":
+        num.splice(index, 1);
+        title.splice(index, 1);
+        num = num;
+        title = title;
+        break;
+      default:
+        console.log("default");
+        break;
     }
   }
-
-  function test(event) {
-    if(event.type == "new"){
-      title = [...title,event.detail.text]
-      num = [...num,event.detail.number]
-    }
-  }
-  
 </script>
 <p>合計:{ sum }</p>
 {#each title as title, index}
@@ -42,17 +43,17 @@
     <input class="counter_title" placeholder= { title }  bind:value = { title } >
     <span class="counter_items">
       <button class="item number">{ num[index] }</button>
-      <button class="item" on:click={() => Increment(index)}>+</button>
-      <button class="item" on:click={() => Decrement(index)}>-</button>
-      <button class="item" on:click={() => resetIndex(index)}>0</button>
-      <button class="item" on:click={() => removeFromList(index)}>×</button>
+      <Increment index = { index } on:increment={ EventHandler }/>
+      <Decrement index = { index } on:decrement={ EventHandler }/>
+      <ResetNumber index = { index } on:reset={ EventHandler }/>
+      <RemoveFromList index = { index } on:remove={ EventHandler }/>
     </span>
     
   </div>
 {/each} 
-<AddToList on:new={ test }/>
+<AddToList on:new={ EventHandler }/>
 
-<p>{title}</p>
+<p>titl:{title}</p>
 
 <style>
   p{
@@ -73,11 +74,6 @@
     width: 40%;
     margin-right:0;
     }
-  .item{
-    margin: 10px 0;
-    width:40px;
-
-  }
   .number{
       background-color:#6495ed;
       color:white;
