@@ -4,60 +4,36 @@
   import Decrement from './Decrement.svelte';
   import ResetNumber from './ResetNumber.svelte';
   import RemoveFromList from './RemoveFromList.svelte';
-  let title = ['new']
-  let num = [0]
-  
-  $: sum = num.reduce((sum, element) => sum + element, 0)
-  
-  function EventHandler(event) {
-    let index = event.detail.index
-    switch(event.type){
-      case "new":
-        title = [...title,event.detail.text]
-        num = [...num,event.detail.number]
-        break;
-      case "increment":
-        num[index] += 1;
-        break;
-      case "decrement":
-        num[index] -= 1;
-        break;
-      case "reset":
-        num[index] = 0;
-        break;
-      case "remove":
-        num.splice(index, 1);
-        title.splice(index, 1);
-        num = num;
-        title = title;
-        break;
-      default:
-        console.log("default");
-        break;
-    }
+
+  let titles = ['new'];
+  let numbers = [0];
+  $: sum = numbers.reduce((sum, element) => sum + element, 0);
+
+  function CalculationtHandler(event) {
+    numbers = event.detail.numbers;
+    titles = event.detail.titles;
   }
 </script>
-<p>合計:{ sum }</p>
-{#each title as title, index}
+<h3>合計:{ sum }</h3>
+{#each titles as title, index}
   <div class="counter">
-    <input class="counter_title" placeholder= { title }  bind:value = { title } >
+    <input class="counter_title" bind:value = { title } >
     <span class="counter_items">
-      <button class="item number">{ num[index] }</button>
-      <Increment index = { index } on:increment={ EventHandler }/>
-      <Decrement index = { index } on:decrement={ EventHandler }/>
-      <ResetNumber index = { index } on:reset={ EventHandler }/>
-      <RemoveFromList index = { index } on:remove={ EventHandler }/>
+      <button class="number">{ numbers[index] }</button>
+      <Increment index = { index } titles = { titles }  numbers = { numbers } on:increment={ CalculationtHandler }/>
+      <Decrement index = { index } titles = { titles } numbers = {numbers} on:decrement={ CalculationtHandler }/>
+      <ResetNumber index = { index } titles = { titles } numbers = {numbers} on:reset={ CalculationtHandler }/>
+      <RemoveFromList index = { index } titles = { titles } numbers = {numbers} on:remove={ CalculationtHandler }/>
     </span>
-    
   </div>
 {/each} 
-<AddToList on:new={ EventHandler }/>
-
-<p>titl:{title}</p>
-
+<AddToList titles = { titles } numbers = {numbers} on:new={ CalculationtHandler }/>
+<h3>title: { titles }</h3>
 <style>
-  p{
-    text-align:left
+  h3{
+    text-align:left;
+    font-weight:bold;
+    margin:5px;
   }
   .counter{
     margin-top:5px;
@@ -69,18 +45,20 @@
   .counter_title{
     width: 60%;
     margin-left:0;
+    border: none;
   }
   .counter_items{
     width: 40%;
     margin-right:0;
-    }
-  .number{
-      background-color:#6495ed;
-      color:white;
-      pointer-events:none;
   }
-  
-
+  .number{
+    margin: 10px 0;
+    width:40px;
+    border: none;
+    background-color:#6495ed;
+    color:white;
+    pointer-events:none;
+  }
   
   @media(max-width:650px){
     .counter_title {
@@ -90,10 +68,6 @@
     .counter_items {
       width: 50%;
       margin-right:0;
-    }
-    .item {
-      margin: 10px 0;
-      width:8%;
     }
   }
 </style>

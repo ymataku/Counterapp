@@ -1,24 +1,29 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-	function add() {
+  export let numbers;
+  export let titles;
+	function New() {
+    titles = [...titles,"new"];
+    numbers = [...numbers,0];
 		dispatch('new', {
-			text: "new",
-			number:0
+			titles:titles,
+      numbers:numbers
 		});
   }
 </script>
 
-<button class="add" on:click={ add }>new</button>
+<button class="new" on:click={ New }>new</button>
 
 <style>
-.add{
-      width:100%;
-      margin-top:20px;
-      background-color:#dcdcdc;
+  .new{
+    width:100%;
+    margin-top:20px;
+    background-color:#dcdcdc;
+    border:none;
   }
-  .add:hover{
-      background-color:#ffffff;
+  .new:hover{
+    background-color:#ffffff;
   }
 </style>
 
