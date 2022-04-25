@@ -1,55 +1,58 @@
 <script lang="ts">
-  import { counts } from "./stores.js";
+  import AddToList from './AddToList.svelte';
+  let title = ['new']
+  let num = [0]
   
-  let sum:number = 0;
-  for(let key in $counts){
-   sum += $counts[key].num; 
-  }
-  
+  $: sum = num.reduce((sum, element) => sum + element,0)
   function removeFromList(i:number) {
-    sum -=  $counts[i].num
-    $counts.splice(i, 1)
-    $counts = $counts
+    num.splice(i, 1)
+    title.splice(i, 1)
+    num = num
+    title = title
   }
   
   function resetIndex(i:number) {
-    sum -=  $counts[i].num
-		$counts[i].num = 0
+		num[i] = 0
   }
 
   function Increment(i:number){
-      sum += 1
-      $counts[i].num += 1 
-      console.log($counts[i].num)
+      num[i] += 1 
+      
   }
 
   function Decrement(i:number){
-    if($counts[i].num > 0){
-      $counts[i].num -= 1
-      sum -= 1
+    if(num[i] > 0){
+      num[i] -= 1
     }else{
       return
     }
   }
 
-  function addToList() {
-    $counts = [...$counts, {title: "new", num: 0}]
+  function test(event) {
+    if(event.type == "new"){
+      title = [...title,event.detail.text]
+      num = [...num,event.detail.number]
+    }
   }
+  
 </script>
-<p>合計：{ sum }</p>
-{#each $counts as count, index}
+<p>合計:{ sum }</p>
+{#each title as title, index}
   <div class="counter">
-    <input type="text" class="counter_title" placeholder="{count.title}" />
+    <input class="counter_title" placeholder= { title }  bind:value = { title } >
     <span class="counter_items">
-      <button class="item number">{count.num}</button>
+      <button class="item number">{ num[index] }</button>
       <button class="item" on:click={() => Increment(index)}>+</button>
       <button class="item" on:click={() => Decrement(index)}>-</button>
       <button class="item" on:click={() => resetIndex(index)}>0</button>
       <button class="item" on:click={() => removeFromList(index)}>×</button>
     </span>
+    
   </div>
 {/each} 
-<button class="add" on:click={ addToList }>new</button>
+<AddToList on:new={ test }/>
+
+<p>{title}</p>
 
 <style>
   p{
@@ -80,15 +83,9 @@
       color:white;
       pointer-events:none;
   }
-  .add{
-      width:100%;
-      margin-top:20px;
-      background-color:#dcdcdc;
-  }
-  .add:hover{
-      background-color:#ffffff;
+  
 
-  }
+  
   @media(max-width:650px){
     .counter_title {
       width: 50%;

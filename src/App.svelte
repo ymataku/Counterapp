@@ -1,5 +1,7 @@
 <script lang="ts">
   import Calculate from './Calculate.svelte';
+  
+                        
 </script>
 
 <header>
@@ -8,6 +10,7 @@
 <main>
   <Calculate/>	
 </main>
+
 <style>
   header {
     text-align: center
