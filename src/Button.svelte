@@ -1,29 +1,23 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  export let index;
   export let titles;
   export let numbers;
   const dispatch = createEventDispatcher();
-  function Decrement(index) {
-    if(numbers[index] > 0) numbers[index] = numbers[index] - 1;
-	dispatch('decrement', {
-	index:index,
-    titles:titles,
-    numbers:numbers  
-    });
-  }
+  
   function Increment(index) {
-  number += 1;
-  dispatch('increment', {
+  numbers[index] += 1;
+  dispatch('dispatch', {
     index: index ,
-    number:number
+    titles:titles,
+    numbers:numbers
   });
   }
   function ResetNumber(index) {
-    number = 0; 
-	dispatch('reset', {
+    numbers[index] = 0; 
+	dispatch('dispatch', {
 	  index:index,
-      number:number
+      titles:titles,
+      numbers:numbers
 	});
   }
   function RemoveFromList(index) {
@@ -31,7 +25,7 @@
       titles.splice(index, 1);
       numbers = numbers;
       titles = titles;
-	  dispatch('remove', {
+	  dispatch('dispatch', {
 	    index:index,
         titles:titles,
         numbers:numbers
@@ -39,11 +33,19 @@
   }
   function Decrement(index) {
     if(numbers[index] > 0) numbers[index] = numbers[index] - 1;
-	dispatch('decrement', {
+	dispatch('dispatch', {
 	index:index,
     titles:titles,
     numbers:numbers  
     });
+  }
+  function New() {
+    titles = [...titles,"new"];
+    numbers = [...numbers,0];
+		dispatch('dispatch', {
+			titles:titles,
+      numbers:numbers
+		});
   }
 </script>
 {#each titles as title, index}
@@ -60,7 +62,7 @@
 {/each} 
 
 <button class="new" on:click={ New }>new</button>
-
+<h3>title: { titles }</h3>
 <style>
 .counter{
     margin-top:5px;
