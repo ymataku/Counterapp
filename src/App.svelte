@@ -1,13 +1,14 @@
 <script lang="ts">
-  import Calculate from './Calculate.svelte';
+  import Calculate from './Calculate.svelte';                    
 </script>
 
-<header>
-	<h1>Counter Application</h1>
+<header>	
+  <h1>Counter Application</h1>
 </header>
 <main>
   <Calculate/>	
 </main>
+
 <style>
   header {
     text-align: center
