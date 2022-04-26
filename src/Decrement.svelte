@@ -1,15 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   export let index;
-  export let titles;
-  export let numbers;
+  export let number;
   const dispatch = createEventDispatcher();
   function Decrement(index) {
-    if(numbers[index] > 0) numbers[index] = numbers[index] - 1;
+    if(number > 0) number = number - 1;
 	dispatch('decrement', {
 	index:index,
-    titles:titles,
-    numbers:numbers  
+    number:number  
     });
   }
 </script>

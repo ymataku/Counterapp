@@ -1,15 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   export let index;
-  export let titles;
-  export let numbers;
+  export let number;
   const dispatch = createEventDispatcher();
   function ResetNumber(index) {
-    numbers[index] = 0; 
+    number = 0; 
 	dispatch('reset', {
-	index:index,
-      numbers:numbers,
-      titles:titles
+	  index:index,
+      number:number
 	});
   }
 </script>

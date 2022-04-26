@@ -1,15 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   export let index;
-  export let titles;
-  export let numbers;
+  export let number;
   const dispatch = createEventDispatcher();
   function Increment(index) {
-  numbers[index] += 1 
+  number += 1;
   dispatch('increment', {
     index: index ,
-    titles:titles,
-    numbers:numbers
+    number:number
   });
 }
 </script>

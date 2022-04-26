@@ -8,10 +8,13 @@
   let titles = ['new'];
   let numbers = [0];
   $: sum = numbers.reduce((sum, element) => sum + element, 0);
-
-  function CalculationtHandler(event) {
-    numbers = event.detail.numbers;
+  
+  function NeworRemoveEvent(event){
     titles = event.detail.titles;
+    numbers = event.detail.numbers;
+  }
+  function CalculationtEvent(event) {
+    numbers[event.detail.index] = event.detail.number;
   }
 </script>
 <h3>合計:{ sum }</h3>
@@ -20,14 +23,14 @@
     <input class="counter_title" bind:value = { title } >
     <span class="counter_items">
       <button class="number">{ numbers[index] }</button>
-      <Increment index = { index } titles = { titles }  numbers = { numbers } on:increment={ CalculationtHandler }/>
-      <Decrement index = { index } titles = { titles } numbers = {numbers} on:decrement={ CalculationtHandler }/>
-      <ResetNumber index = { index } titles = { titles } numbers = {numbers} on:reset={ CalculationtHandler }/>
-      <RemoveFromList index = { index } titles = { titles } numbers = {numbers} on:remove={ CalculationtHandler }/>
+      <Increment index = { index } number = { numbers[index] } on:increment={ CalculationtEvent }/>
+      <Decrement index = { index } number = { numbers[index] } on:decrement={ CalculationtEvent }/>
+      <ResetNumber index = { index } number = { numbers[index] } on:reset={ CalculationtEvent }/>
+      <RemoveFromList index = { index } titles = { titles } numbers = {numbers} on:remove={ NeworRemoveEvent }/>
     </span>
   </div>
 {/each} 
-<AddToList titles = { titles } numbers = {numbers} on:new={ CalculationtHandler }/>
+<AddToList titles = { titles } numbers = {numbers} on:new={ NeworRemoveEvent }/>
 <h3>title: { titles }</h3>
 <style>
   h3{
