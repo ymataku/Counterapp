@@ -3,50 +3,40 @@
   export let titles;
   export let numbers;
   const dispatch = createEventDispatcher();
-  
-  function Increment(index) {
-  numbers[index] += 1;
-  dispatch('dispatch', {
-    index: index ,
-    titles:titles,
-    numbers:numbers
-  });
-  }
-  function ResetNumber(index) {
-    numbers[index] = 0; 
-	dispatch('dispatch', {
-	  index:index,
-      titles:titles,
-      numbers:numbers
-	});
-  }
-  function RemoveFromList(index) {
-      numbers.splice(index, 1)
-      titles.splice(index, 1);
-      numbers = numbers;
-      titles = titles;
-	  dispatch('dispatch', {
-	    index:index,
+
+  function dispatcher(index:numer){
+    dispatch('dispatch', {
+        index:index,
         titles:titles,
         numbers:numbers
-	});
-  }
-  function Decrement(index) {
-    if(numbers[index] > 0) numbers[index] = numbers[index] - 1;
-	dispatch('dispatch', {
-	index:index,
-    titles:titles,
-    numbers:numbers  
     });
+  }
+
+  function Increment(index:number) {
+    numbers[index] += 1;
+    dispatcher(index);
+  }
+  function ResetNumber(index:number) {
+    numbers[index] = 0; 
+    dispatcher(index);
+  }
+  function RemoveFromList(index:number) {
+    numbers.splice(index, 1)
+    titles.splice(index, 1);
+    numbers = numbers;
+    titles = titles;
+    dispatcher(index);
+  }
+  function Decrement(index:number) {
+    if(numbers[index] > 0) numbers[index] = numbers[index] - 1;
+    dispatcher(index);
   }
   function New() {
     titles = [...titles,"new"];
     numbers = [...numbers,0];
-		dispatch('dispatch', {
-			titles:titles,
-      numbers:numbers
-		});
+    dispatcher(index);
   }
+  
 </script>
 {#each titles as title, index}
   <div class="counter">
@@ -60,7 +50,6 @@
     </span>
   </div>
 {/each} 
-
 <button class="new" on:click={ New }>new</button>
 <h3>title: { titles }</h3>
 <style>
@@ -84,6 +73,11 @@
     margin: 10px 0;
     width:40px;
     border:none;
+  }
+  h3{
+    text-align:left;
+    font-weight:bold;
+    margin:5px;
   }
   @media(max-width:650px){
     .counter_title{
